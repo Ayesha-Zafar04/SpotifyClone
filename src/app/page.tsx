@@ -15,16 +15,11 @@ export default function Home() {
       <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-zinc-900 to-zinc-900/50 border border-zinc-800/40 p-8 sm:p-10">
         <div className="absolute right-0 bottom-0 top-0 w-1/3 bg-radial from-emerald-500/10 via-transparent to-transparent pointer-events-none" />
         <div className="flex flex-col gap-4 max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-            Sprint 2 Complete
-          </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Welcome to Spotify Clone
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            The UI foundation for the Spotify Clone application has been completed.
-            You can navigate through the search and library placeholder sections using the sidebar,
-            and explore the responsive panels of this dark-themed app shell.
+            Explore music, podcasts, and playlists. Navigate using the sidebar to find your favorite songs, view your library, or browse recommendations.
           </p>
         </div>
       </div>

@@ -1,260 +1,86 @@
 # Spotify Clone - Sprint Plan
 
+This document tracks the goals, tasks, and completion status of each development sprint for the Spotify Clone application.
+
 ---
 
 ## Sprint 1 – Project Initialization
 
-Status: Pending
+**Status**: Completed
 
-Goal:
-Create the Next.js project and establish a clean project foundation.
+**Goal**:
+Initialize the Next.js application, configure toolchains, and build the initial codebase structure.
 
-Tasks:
-
-* Initialize Next.js with TypeScript and Tailwind CSS.
-* Install essential development dependencies.
-* Create the initial folder structure.
-* Configure linting and formatting if needed.
-* Verify the project runs successfully.
-
-Definition of Done:
-
-* Project starts without errors.
-* Folder structure is organized.
-* Initial commit is ready.
+**Tasks**:
+* [x] Initialize Next.js with TypeScript and Tailwind CSS.
+* [x] Configure Prettier and ESLint rules.
+* [x] Establish initial project folder hierarchy (`src/app`, `src/components`, `src/lib`).
+* [x] Add Tailwind CSS v4 support.
+* [x] Verify project runs successfully.
 
 ---
 
-## Sprint 2 – Application Layout
+## Sprint 2 – Application Layout & UI Foundation
 
-Status: Pending
+**Status**: Completed
 
-Goal:
-Build the global layout and navigation.
+**Goal**:
+Build the global layout, navigation sidebar, header, placeholder pages, and mock music player bar with dark Spotify-inspired colors.
 
-Tasks:
-
-* Create root layout.
-* Create sidebar.
-* Create header.
-* Configure responsive layout.
-* Apply Spotify-inspired dark theme.
-
-Definition of Done:
-
-* Navigation works.
-* Layout is responsive.
-* Theme is applied.
+**Tasks**:
+* [x] Initialize shadcn/ui and configure integration with Tailwind CSS v4.
+* [x] Install and configure the shadcn `Button` component.
+* [x] Configure global dark colors and theme variables in `globals.css` (primary green `#1db954`, black `#000000`, card backgrounds `#121212`, etc.).
+* [x] Create Root Layout with a responsive sidebar and a top-level content layout.
+* [x] Build Sidebar component with Home, Search, and Your Library links utilizing path-aware highlights.
+* [x] Build Header component with browser-like navigation arrows and a profile button action.
+* [x] Build user-facing Home dashboard, Search mockup page (with mock search input), and Your Library page (with mock filter chips and an empty library state visual).
+* [x] Create a static mock player bottom bar (height: 80px) representing mock track information, media controls, and volume control layout in a disabled state.
+* [x] Run verification tests and resolve all linter warnings.
 
 ---
 
-## Sprint 3 – Authentication
+## Sprint 3 – User Authentication
 
-Status: Pending
+**Status**: Completed
 
-Goal:
-Implement user authentication.
+**Goal**:
+Integrate authentication services to support signups, logins, signouts, and protected route redirects.
 
-Tasks:
-
-* Configure authentication provider.
-* Login page.
-* Registration page.
-* Protected routes.
-* Logout.
-
-Definition of Done:
-
-* Users can sign up.
-* Users can log in.
-* Protected pages require authentication.
+**Tasks**:
+* [x] Configure Clerk authentication provider.
+* [x] Create custom Login (`/login`) page using Clerk SignIn component.
+* [x] Create custom Signup (`/signup`) page using Clerk SignUp component.
+* [x] Implement secure route guards (redirect unauthenticated users to `/login` when trying to access `/library`).
+* [x] Integrate Header with Clerk session hooks (`useUser` and `useClerk`) to show dynamic username and log out actions.
+* [x] Migrate middleware to Next.js 16 proxy convention (`src/proxy.ts`).
+* [x] Verify auth flow compiles and builds cleanly.
 
 ---
 
-## Sprint 4 – Database
+## Sprint 4 – Database & Prisma Integration
+**Status**: Pending
 
-Status: Pending
+## Sprint 5 – Home Page (Dynamic Data)
+**Status**: Pending
 
-Goal:
-Connect the application to PostgreSQL using Prisma.
+## Sprint 6 – Music Player (Audio Playback)
+**Status**: Pending
 
-Tasks:
-
-* Configure Prisma.
-* Connect Neon database.
-* Create initial schema.
-* Run migrations.
-* Verify database connection.
-
-Definition of Done:
-
-* Database connected.
-* Prisma working correctly.
-
----
-
-## Sprint 5 – Home Page
-
-Status: Pending
-
-Goal:
-Create the Spotify-inspired home page.
-
-Tasks:
-
-* Hero section.
-* Recently Played.
-* Featured Albums.
-* Recommended Songs.
-* Responsive cards.
-
-Definition of Done:
-
-* Home page resembles Spotify.
-* Layout is responsive.
-
----
-
-## Sprint 6 – Music Player
-
-Status: Pending
-
-Goal:
-Build the audio player interface.
-
-Tasks:
-
-* Play button.
-* Pause button.
-* Progress bar.
-* Volume control.
-* Song information.
-
-Definition of Done:
-
-* Player UI completed.
-* Audio playback functioning.
-
----
-
-## Sprint 7 – Search
-
-Status: Pending
-
-Goal:
-Allow users to search music.
-
-Tasks:
-
-* Search input.
-* Search results.
-* Filter songs.
-* Filter artists.
-
-Definition of Done:
-
-* Search works correctly.
-
----
+## Sprint 7 – Search Functionality
+**Status**: Pending
 
 ## Sprint 8 – Albums & Artists
+**Status**: Pending
 
-Status: Pending
-
-Goal:
-Display albums and artist pages.
-
-Tasks:
-
-* Album cards.
-* Artist cards.
-* Album details.
-* Artist details.
-
-Definition of Done:
-
-* Albums and artists display correctly.
-
----
-
-## Sprint 9 – Playlists
-
-Status: Pending
-
-Goal:
-Implement playlist functionality.
-
-Tasks:
-
-* Create playlist.
-* Edit playlist.
-* Delete playlist.
-* Add songs.
-* Remove songs.
-
-Definition of Done:
-
-* Playlist management complete.
-
----
+## Sprint 9 – Playlists Management
+**Status**: Pending
 
 ## Sprint 10 – User Library
-
-Status: Pending
-
-Goal:
-Build the user's personal music library.
-
-Tasks:
-
-* Liked songs.
-* Saved albums.
-* Recently played.
-* Favorites.
-
-Definition of Done:
-
-* Library works correctly.
-
----
+**Status**: Pending
 
 ## Sprint 11 – Polish & Responsiveness
-
-Status: Pending
-
-Goal:
-Improve the user experience.
-
-Tasks:
-
-* Mobile responsiveness.
-* Tablet responsiveness.
-* Loading states.
-* Empty states.
-* Error handling.
-
-Definition of Done:
-
-* Application is responsive.
-* UX improvements completed.
-
----
+**Status**: Pending
 
 ## Sprint 12 – Deployment
-
-Status: Pending
-
-Goal:
-Deploy the application.
-
-Tasks:
-
-* Configure environment variables.
-* Deploy on Vercel.
-* Verify production build.
-* Final testing.
-
-Definition of Done:
-
-* Application deployed successfully.
-* Production build works correctly.
+**Status**: Pending
