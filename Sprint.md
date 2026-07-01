@@ -65,7 +65,7 @@ Implement authentication and secure protected routes.
 
 ## Sprint 4 – Database & User Data Integration
 
-**Status**: Ready to Start
+**Status**: Completed
 
 ### Goal
 
@@ -73,18 +73,17 @@ Set up PostgreSQL and Prisma to store user-specific data while keeping music con
 
 ### Tasks
 
-* [ ] Create a PostgreSQL database.
-* [ ] Configure Prisma ORM.
-* [ ] Connect Prisma to PostgreSQL.
-* [ ] Create the User model.
-* [ ] Synchronize Clerk users with the database.
-* [ ] Create the Playlist model.
-* [ ] Create the PlaylistSong model (store external song IDs only).
-* [ ] Create the LikedSong model (store external song IDs only).
-* [ ] Create the RecentlyPlayed model.
-* [ ] Generate and run the initial Prisma migration.
-* [ ] Create a reusable Prisma Client.
-* [ ] Verify CRUD operations for user-related data.
+* [x] Create a PostgreSQL database.
+* [x] Configure Prisma ORM.
+* [x] Connect Prisma to PostgreSQL.
+* [x] Create the User model.
+* [x] Synchronize Clerk users with the database.
+* [x] Create the Playlist model.
+* [x] Create the PlaylistSong model (store external song IDs only).
+* [x] Create the LikedSong model (store external song IDs only).
+* [x] Generate and run the initial Prisma migration.
+* [x] Create a reusable Prisma Client.
+* [x] Verify CRUD operations for user-related data.
 
 ---
 

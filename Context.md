@@ -13,6 +13,8 @@ Sprint.md and Context.md serve as the single source of truth for the codebase an
 * **Runtime / Compiler**: React 19.2.4 & TypeScript 5
 * **Styling**: Tailwind CSS 4.0.0
 * **Component Library**: shadcn/ui (powered by `@base-ui/react` primitives)
+* **Database ORM**: Prisma ORM v7.8.0
+* **Database Engine**: PostgreSQL (db.prisma.io)
 * **Authentication**: Clerk (`@clerk/nextjs`)
 * **Iconography**: `lucide-react`
 * **Formatting/Linting**: ESLint & Prettier
@@ -26,8 +28,21 @@ c:\Users\ayesh\Desktop\Spotify clone
 ├── .next/                  # Next.js build output
 ├── node_modules/           # Node packages
 ├── public/                 # Static assets (icons, images)
+├── prisma/
+│   ├── migrations/         # PostgreSQL database migrations
+│   └── schema.prisma       # Prisma models definition
 ├── src/
 │   ├── app/
+│   │   ├── api/
+│   │   │   ├── like/
+│   │   │   │   └── route.ts  # Song like/unlike toggles API
+│   │   │   ├── playlist/
+│   │   │   │   └── route.ts  # GET, POST, DELETE playlists API
+│   │   │   ├── songs/
+│   │   │   │   └── route.ts  # GET list of all songs API
+│   │   │   └── user/
+│   │   │       └── sync/
+│   │   │           └── route.ts # Secure Clerk user synchronization API
 │   │   ├── favicon.ico
 │   │   ├── globals.css     # Global styles & Spotify CSS variable definitions
 │   │   ├── layout.tsx      # Global layout wrapped in <ClerkProvider>
@@ -47,13 +62,15 @@ c:\Users\ayesh\Desktop\Spotify clone
 │   │   ├── sidebar.tsx     # Navigation sidebar containing Home, Search, Library, Playlists
 │   │   └── ui/
 │   │       └── button.tsx  # Shadcn Button component configured for Tailwind v4
-│   ├── lib/
-│   │   └── utils.ts        # Tailwind merge class utility
-│   └── proxy.ts            # Clerk route protection proxy
+│   └── lib/
+│       ├── prisma.ts       # Prisma Client singleton
+│       └── utils.ts        # Tailwind merge class utility
+├── src/proxy.ts            # Clerk route protection proxy
 ├── components.json         # shadcn/ui config
 ├── next.config.ts          # Next.js configurations
 ├── package.json            # Scripts & dependencies
 ├── postcss.config.mjs      # CSS post-processing
+├── prisma.config.ts        # Prisma CLI config (loads environment variables)
 ├── tsconfig.json           # TypeScript configuration
 └── README.md
 ```
@@ -104,11 +121,11 @@ The layout is established in `src/app/layout.tsx`. It provides a viewport-locked
 
 ### 4. Login Page (`/login`)
 * **Implemented**: Renders Clerk `<SignIn />` component with custom appearance properties overrides matching the Spotify Green and dark theme styles.
-* **Status**: Fully functional authentication route.
+* **Status**: Fully functional dynamic catch-all route (`/login/[[...rest]]`).
 
 ### 5. Signup Page (`/signup`)
 * **Implemented**: Renders Clerk `<SignUp />` component with customized appearance styles overrides.
-* **Status**: Fully functional registration route.
+* **Status**: Fully functional dynamic catch-all route (`/signup/[[...rest]]`).
 
 ### 6. Player Bar (Global footer)
 * **Implemented**: Viewport bottom footer bar matching Spotify's look. Includes mock album art thumbnail, play/pause circle buttons, shuffle, repeat, prev/next arrows, a mock timeline scrubber bar, and a volume layout slider.
@@ -130,11 +147,22 @@ User Authentication is fully set up using Clerk. The SDK is wrapped around the r
 
 ---
 
-## Sprint 4 Database Prep (System Readiness)
+## Sprint 4 Database & API Integration
 
-To prepare for Sprint 4 (Database & Prisma Integration), we will link user profiles to user data schemas:
+Prisma ORM is integrated and connected to a PostgreSQL database hosted at db.prisma.io.
 
-* **Planned Database Engine**: PostgreSQL (via Neon cloud database instance).
-* **Planned ORM**: Prisma ORM with target tables:
-  - `User`: Storing custom user metadata linked via Clerk `userId` mapping.
-  - `Playlist`, `Song`, `Artist`, `Album`: Prepared structures for relational entities.
+* **Database Schema (`prisma/schema.prisma`)**:
+  - `User`: uniquely maps to Clerk user profile IDs (`clerkId`).
+  - `Song`: title, artist, audio URL, image URL, and duration in seconds.
+  - `Playlist`: collection of songs owned by a specific User.
+  - `PlaylistSong`: join table supporting many-to-many relationships between playlists and songs.
+  - `LikedSong`: track likes record mapped via a composite unique key (`userId_songId`).
+* **Prisma client Helper (`src/lib/prisma.ts`)**:
+  - Configures a singleton pattern on the global object to prevent connection leaks during development HMR.
+* **Backend API Endpoints**:
+  - `POST /api/user/sync`: Securely syncs authenticated Clerk user details to PostgreSQL.
+  - `GET /api/songs`: Retrieves all songs.
+  - `GET /api/playlist`: Fetches all playlists owned by the authenticated user session.
+  - `POST /api/playlist`: Creates a new playlist under the active user's session.
+  - `DELETE /api/playlist?id=xxx`: Deletes a playlist owned by the active user.
+  - `POST /api/like`: Toggles (likes/unlikes) a track for the authenticated user session.
